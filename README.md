@@ -13,12 +13,15 @@ Install python3.
 
 Install tensorflow [https://www.tensorflow.org/](https://www.tensorflow.org/)
 
+### install this project
 `git clone https://github.com/fbxiang/deep-pink-cake.git`
 
 `cd deep-pink-cake`
 
-`sudo pip3 install numpy scipy Keras librosa`
+`sudo pip3 install numpy scipy Keras librosa python-osc`
 
-
+### Install sonic visualizer (recommended)
+Download and install at [http://www.sonicvisualiser.org/](http://www.sonicvisualiser.org/)
+Sonic visualizer interface WIP.
 
 
