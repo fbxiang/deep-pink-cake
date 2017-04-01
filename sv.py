@@ -58,12 +58,25 @@ def waveplot(y, sr):
 
 
 def spectrogram(y, sr):
+    """send a spectrogram to sonic visualizer
+    y -- array     the sound samples
+    sr -- sample rate
+    raise: Exception if the format is not valid or sonic visualizer is broken
+    """
     librosa.output.write_wav('tmp/tmp.wav', y, sr, True)
     send_message('/open', '/tmp/tmp.wav')
     send_message('/add', ['spectrogram'])
 
 
 def export_labels(label_times, filename='/tmp/labels.txt'):
+    """export a sv readable label file
+    label_times -- number array      the time points
+    filename -- string               file name to save the label file
+    raise: Assertion Error if the array are not numbers
+           Some other exception is file is invalid
+    """
+    for t in label_times:
+        assert(t is int or t is float)
     with open(filename, 'w') as f:
         for t in label_times:
             f.write('{}\tNew Point\n'.format(t))
