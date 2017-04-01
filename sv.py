@@ -67,5 +67,3 @@ def export_labels(label_times, filename='/tmp/labels.txt'):
     with open(filename, 'w') as f:
         for t in label_times:
             f.write('{}\tNew Point\n'.format(t))
-
-# TODO: Add functions such as sending bars, music files, etc.
