@@ -4,13 +4,6 @@ import numpy as np
 from pythonosc import udp_client
 import librosa
 
-def mktmp():
-    try: os.mkdir('tmp')
-    except FileExistsError: pass
-
-def clrtmp():
-    try: os.rmdir('tmp')
-    except Exception: pass
 
 def get_sv_port():
     """ get the port currently used by the sonic visualizer
@@ -19,11 +12,10 @@ def get_sv_port():
     return: the port number
     raise: Exception when sonic visualizer is not found on the port list
     """
-    mktmp()
 
-    os.system("lsof -c sonic-vi | grep UDP |  sed -e 's/^.*[^0-9]\\([0-9][0-9]*\\) *$/\\1/' | grep -v ' ' | head -1 > tmp/svinfo")
+    os.system("lsof -c sonic-vi | grep UDP |  sed -e 's/^.*[^0-9]\\([0-9][0-9]*\\) *$/\\1/' | grep -v ' ' | head -1 > /tmp/svinfo")
     try:
-        with open('tmp/svinfo', 'r') as f:
+        with open('/tmp/svinfo', 'r') as f:
             port = int(f.readline().strip())
 
     except Exception:
@@ -40,7 +32,6 @@ def update_client():
     global client
     global port
     new_port = get_sv_port()
-    print(port, new_port)
     if port != new_port:
         print('port switched to', new_port)
         port = new_port
@@ -62,8 +53,19 @@ def waveplot(y, sr):
     sr -- sample rate
     raise: Exception if the format is not valid or sonic visualizer is broken
     """
-    mktmp()
-    librosa.output.write_wav('tmp/tmp.wav', y, sr)
-    send_message('/open', os.path.abspath('tmp/tmp.wav'))
+    librosa.output.write_wav('tmp/tmp.wav', y, sr, True)
+    send_message('/open', '/tmp/tmp.wav')
+
+
+def spectrogram(y, sr):
+    librosa.output.write_wav('tmp/tmp.wav', y, sr, True)
+    send_message('/open', '/tmp/tmp.wav')
+    send_message('/add', ['spectrogram'])
+
+
+def export_labels(label_times, filename='/tmp/labels.txt'):
+    with open(filename, 'w') as f:
+        for t in label_times:
+            f.write('{}\tNew Point\n'.format(t))
 
 # TODO: Add functions such as sending bars, music files, etc.
