@@ -9,6 +9,7 @@ import shutil
 X = sys.argv[1]
 names = os.listdir()
 folder_names = [name.replace('.osz', '') for name in names]
+folder_names = [name.replace('.', '') for name in folder_names]
 n = len(names)
 
 for i in range(n):
