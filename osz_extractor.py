@@ -14,7 +14,7 @@ def file_clear(folder_name):
 
     for name in subnames:
         path = folder_name + '/' + name
-        if '.mp3' not in name and '.osu' not in name:
+        if '.mp3' or '.MP3' not in name and '.osu' not in name:
             if os.path.isdir(path):
                 shutil.rmtree(path)
             else:
