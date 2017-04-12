@@ -1,6 +1,6 @@
 import os
 import sys
-import patoolib
+# import patoolib
 import shutil
 
 def file_clear(folder_name):
@@ -69,4 +69,5 @@ def extract_osz(if_clear):
     else:
         return
 
-extract_osz(True)
+# extract_osz(True)
+dir_clear()
