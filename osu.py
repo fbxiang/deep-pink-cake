@@ -1,5 +1,6 @@
 import numpy as np
 from parse import parse
+import librosa
 
 class HitObjectType:
     Normal = 1
@@ -102,3 +103,9 @@ def load_hit_objects(filename):
 
     return hit_objects
 
+def load_music(filename, sr=22050):
+    librosa.load(filename, sr)
+
+
+def extract_feature(obj):
+    return obj['time'], [obj['x'], obj['y']]

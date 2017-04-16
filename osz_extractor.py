@@ -1,6 +1,6 @@
 import os
 import sys
-# import patoolib
+import patoolib
 import shutil
 
 def file_clear(folder_name):
@@ -14,7 +14,7 @@ def file_clear(folder_name):
 
     for name in subnames:
         path = folder_name + '/' + name
-        if '.mp3' not in name and '.MP3' not in name and '.osu' not in name:
+        if '.mp3' or '.MP3' not in name and '.osu' not in name:
             if os.path.isdir(path):
                 shutil.rmtree(path)
             else:
@@ -35,7 +35,7 @@ def file_clear(folder_name):
     new_subnames = os.listdir(folder_name)
     if len(new_subnames) == 1:
         new_path = folder_name + '/' + new_subnames[0]
-        os.remove(new_path)  
+        os.remove(new_path)
     return
 
 def dir_clear():
@@ -69,5 +69,5 @@ def extract_osz(if_clear):
     else:
         return
 
-# extract_osz(True)
+
 dir_clear()
