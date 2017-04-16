@@ -10,6 +10,16 @@ def get_html(folder_name):
     html = response.read()
     return html
 
+def get_difficulty_name(folder_name):
+    files = os.listdir(folder_name)
+    diff_names = []
+    for name in files:
+        if '.osu' in name:
+            i1 = name.find("[")
+            i2 = name.find("]", i1)
+            diff_names.append(name[i1+1:i2])
+    return diff_names
+
 def get_difficulty(folder_name):
     html_data = get_html(folder_name)
     str_html = str(html_data)
@@ -21,11 +31,5 @@ def get_difficulty(folder_name):
 
 html_data = get_difficulty("572206 Yui Horie - Sweet & Sweet CHERRY")
 print(html_data)
-# str_html = str(html_data)
-# i1 = str_html.find("Star Difficulty")
-# i2 =str_html.find("(", i1)
-# print(str_html[i2:i2+10])
-# html_data.encode('utf-8', 'ignore')
-# print(html_data)
-# soup = BeautifulSoup(html_data, 'lxml')
-# print(soup.prettify())
+diff_names = get_difficulty_name("572206 Yui Horie - Sweet & Sweet CHERRY")
+print(diff_names)
