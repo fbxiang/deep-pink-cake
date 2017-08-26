@@ -51,3 +51,12 @@ def write_difficulty_file(foldername):
     with open(mapping_file, 'w') as f:
         for d, n in mapping:
             f.write("{} -> {}\n".format(d, n))
+
+
+if __name__=='__main__':
+    import sys
+    filename = sys.argv[1]
+    with open(filename, 'r') as f:
+        folders = [line.strip() for line in f if line.strip() != '']
+    for folder in folders:
+        write_difficulty_file(folder)
